@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import dbConnect from '@/lib/dbConnect';
 import Kelas from '@/models/admin/kelas';
 

@@ -1,8 +1,11 @@
 import React from 'react';
+
 const MainLayout = ({ children }) => (
-  <div className="flex h-screen bg-blue-400">
-    <h1>selamat datang</h1>
-    <main className="flex-1 bg-gray-100 p-4 overflow-auto">{children}</main>
+  <div
+    className="min-h-screen flex items-center justify-center"
+    style={{ backgroundColor: '#00FF00' }}
+  >
+    {children}
   </div>
 );
 

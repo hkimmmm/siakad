@@ -1,7 +1,7 @@
 import dbConnect from '@/lib/dbConnect';
 import Matkul from '@/models/admin/matkul';
+import Akademik from '@/models/admin/akademik';
 import Prodi from '@/models/admin/prodi';
-import Dosen from '@/models/admin/dosen';
 
 export default async function handler(req, res) {
   await dbConnect();
@@ -12,8 +12,8 @@ export default async function handler(req, res) {
     case 'GET':
       try {
         const matkulList = await Matkul.find()
-          .populate('prodi')
-          .populate('dosen');
+          .populate('akademik')
+          .populate('prodi');
         res.status(200).json({ success: true, data: matkulList });
       } catch (error) {
         console.error('Error fetching Matkul:', error);
@@ -23,21 +23,13 @@ export default async function handler(req, res) {
 
     case 'POST':
       try {
-        const { kode_matkul, nama_matkul, prodi, semester, sks, dosen } =
-          req.body;
+        const { kode_matkul, nama_matkul, prodi, akademik, sks } = req.body;
 
-        if (
-          !kode_matkul ||
-          !nama_matkul ||
-          !prodi ||
-          !semester ||
-          !sks ||
-          !dosen
-        ) {
+        if (!kode_matkul || !nama_matkul || !prodi || !akademik || !sks) {
           return res.status(400).json({
             success: false,
             message:
-              'All fields (kode_matkul, nama_matkul, prodi, semester, sks, dosen) are required.'
+              'All fields (kode_matkul, nama_matkul, prodi, akademik, sks) are required.'
           });
         }
 

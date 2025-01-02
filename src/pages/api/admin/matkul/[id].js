@@ -18,8 +18,8 @@ export default async function handler(req, res) {
     case 'GET':
       try {
         const matkul = await Matkul.findById(id)
-          .populate('prodi')
-          .populate('dosen');
+          .populate('akademik')
+          .populate('prodi');
         if (!matkul) {
           return res
             .status(404)

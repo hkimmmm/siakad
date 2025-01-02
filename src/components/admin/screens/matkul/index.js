@@ -7,8 +7,8 @@ import MatkulTable from '../../fragments/MatkulTable';
 
 const DaftarMatkul = () => {
   const [matkulList, setMatkulList] = useState([]);
+  const [akademikOptions, setAkademikOptions] = useState([]);
   const [prodiOptions, setProdiOptions] = useState([]);
-  const [dosenOptions, setDosenOptions] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingMatkul, setEditingMatkul] = useState(null);
 
@@ -19,8 +19,8 @@ const DaftarMatkul = () => {
         setMatkulList(matkulResponse.data.data);
         const prodiResponse = await axios.get('/api/admin/prodi');
         setProdiOptions(prodiResponse.data.data);
-        const dosenResponse = await axios.get('/api/admin/dosen');
-        setDosenOptions(dosenResponse.data.data);
+        const akademikResponse = await axios.get('/api/admin/akademik');
+        setAkademikOptions(akademikResponse.data.data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -106,7 +106,7 @@ const DaftarMatkul = () => {
               onSubmit={handleCreateOrUpdate}
               existingMatkul={editingMatkul}
               prodiOptions={prodiOptions}
-              dosenOptions={dosenOptions}
+              akademikOptions={akademikOptions}
               onClose={handleCloseModal}
             />
           </div>

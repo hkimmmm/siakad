@@ -1,32 +1,34 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
-const LokasiSchema = new mongoose.Schema(
-  {
-    nama_lokasi: {
-      type: String,
-      required: true
-    },
-    location: {
-      type: {
-        type: String,
-        enum: ['Point'],
-        required: true
+const LokasiSchema = new mongoose.Schema({
+  nama_lokasi: {
+    type: String,
+    required: [true, 'Nama lokasi wajib diisi'],
+    trim: true
+  },
+  ipWifi: {
+    type: String,
+    required: [true, 'IP WiFi wajib diisi'],
+    unique: true,
+    validate: {
+      validator: function (v) {
+        return /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(
+          v
+        );
       },
-      coordinates: {
-        type: [Number],
-        required: true
-      }
-    },
-    radius_meter: {
-      type: Number,
-      required: true
+      message: (props) => `${props.value} bukan IP Address yang valid!`
     }
   },
-  { timestamps: true }
-);
+  deskripsi: {
+    type: String,
+    trim: true,
+    default: ''
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
+});
 
-LokasiSchema.index({ location: '2dsphere' });
-
-const Lokasi = mongoose.models.Lokasi || mongoose.model('Lokasi', lokasiSchema);
-
-module.exports = Lokasi;
+module.exports =
+  mongoose.models.Lokasi || mongoose.model('Lokasi', LokasiSchema);

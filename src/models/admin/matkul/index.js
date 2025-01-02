@@ -18,18 +18,13 @@ const MatkulSchema = new mongoose.Schema(
       ref: 'Prodi',
       required: true
     },
-    semester: {
-      type: String,
-      required: true,
-      trim: true
+    akademik: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Akademik',
+      required: true
     },
     sks: {
       type: Number,
-      required: true
-    },
-    dosen: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Dosen',
       required: true
     }
   },

@@ -9,7 +9,7 @@ const FormField = ({
   onChange,
   children,
   accept,
-  error // Tambahkan prop error
+  error
 }) => (
   <div className="mb-4">
     <Label>{label}</Label>
@@ -29,7 +29,7 @@ const FormField = ({
     ) : type === 'file' ? (
       <input
         type="file"
-        accept={accept || 'image/*'} // Default hanya untuk file gambar
+        accept={accept || 'image/*'}
         onChange={onChange}
         className={`border border-gray-300 rounded-md p-2 w-full text-sm text-gray-700 cursor-pointer ${
           error ? 'border-red-500' : ''
@@ -46,7 +46,6 @@ const FormField = ({
         }`}
       />
     )}
-    {/* Tampilkan pesan error jika ada */}
     {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
   </div>
 );

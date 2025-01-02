@@ -31,7 +31,7 @@ export default async function handler(req, res) {
         if (!updatedAkademik) {
           return res
             .status(404)
-            .json({ success: false, message: 'Akademik not found' });
+            .json({ succes: false, message: 'Akademik not found' });
         }
         res.status(200).json({ success: true, data: updatedAkademik });
       } catch (error) {

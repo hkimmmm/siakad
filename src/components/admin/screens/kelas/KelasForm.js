@@ -79,9 +79,9 @@ export default function KelasForm({
             ))}
           </FormField>
           <FormField
-            label="Akademik"
+            label="Semester"
             type="select"
-            placeholder="Pilih Akademik"
+            placeholder="Pilih Semester"
             value={akademik}
             onChange={(e) => setAkademik(e.target.value)}
           >

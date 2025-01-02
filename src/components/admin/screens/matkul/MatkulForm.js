@@ -1,20 +1,19 @@
-import React, { useState, useEffect } from 'react';
 import Button from '../../elements/Button';
 import FormField from '../../fragments/FormField';
+import React, { useState, useEffect } from 'react';
 
 export default function MatkulForm({
   existingMatkul,
   onSubmit,
   onClose,
-  prodiOptions,
-  dosenOptions
+  akademikOptions,
+  prodiOptions
 }) {
   const [kodeMatkul, setKodeMatkul] = useState('');
   const [namaMatkul, setNamaMatkul] = useState('');
   const [prodi, setProdi] = useState('');
-  const [semester, setSemester] = useState('');
+  const [akademik, setAkademik] = useState('');
   const [sks, setSks] = useState('');
-  const [dosen, setDosen] = useState('');
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
@@ -22,9 +21,8 @@ export default function MatkulForm({
       setKodeMatkul(existingMatkul.kode_matkul || '');
       setNamaMatkul(existingMatkul.nama_matkul || '');
       setProdi(existingMatkul.prodi?._id || '');
-      setSemester(existingMatkul.semester?.toString() || '');
+      setAkademik(existingMatkul.akademik?._id || '');
       setSks(existingMatkul.sks?.toString() || '');
-      setDosen(existingMatkul.dosen?._id || '');
     } else {
       resetForm();
     }
@@ -35,9 +33,8 @@ export default function MatkulForm({
     setKodeMatkul('');
     setNamaMatkul('');
     setProdi('');
-    setSemester('');
+    setAkademik('');
     setSks('');
-    setDosen('');
     setErrors({});
   };
 
@@ -48,9 +45,8 @@ export default function MatkulForm({
     if (!namaMatkul.trim())
       validationErrors.namaMatkul = 'Nama Matkul harus diisi.';
     if (!prodi.trim()) validationErrors.prodi = 'Prodi harus dipilih.';
-    if (!semester.trim()) validationErrors.semester = 'Semester harus diisi.';
+    if (!akademik.trim()) validationErrors.akademik = 'Semester harus dipilih.';
     if (!sks.trim()) validationErrors.sks = 'SKS harus diisi.';
-    if (!dosen.trim()) validationErrors.dosen = 'Dosen harus dipilih.';
 
     return validationErrors;
   };
@@ -68,9 +64,8 @@ export default function MatkulForm({
       kode_matkul: kodeMatkul,
       nama_matkul: namaMatkul,
       prodi,
-      semester: parseInt(semester, 10),
+      akademik,
       sks: parseInt(sks, 10),
-      dosen,
       ...(existingMatkul && { _id: existingMatkul._id })
     };
 
@@ -108,58 +103,44 @@ export default function MatkulForm({
             />
           </div>
 
-          <div className="mt-4">
-            <FormField
-              label="Program Studi"
-              type="select"
-              placeholder="Pilih Program Studi"
-              value={prodi}
-              onChange={(e) => setProdi(e.target.value)}
-              error={errors.prodi}
-            >
-              {prodiOptions?.map((prodiItem) => (
-                <option key={prodiItem._id} value={prodiItem._id}>
-                  {prodiItem.nama_prodi}
-                </option>
-              ))}
-            </FormField>
-          </div>
+          <FormField
+            label="Program Studi"
+            type="select"
+            placeholder="Pilih Program Studi"
+            value={prodi}
+            onChange={(e) => setProdi(e.target.value)}
+            error={errors.prodi}
+          >
+            {prodiOptions?.map((prodiItem) => (
+              <option key={prodiItem._id} value={prodiItem._id}>
+                {prodiItem.nama_prodi}
+              </option>
+            ))}
+          </FormField>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
-            <FormField
-              label="Semester"
-              type="number"
-              placeholder="Masukkan Semester (contoh: 1)"
-              value={semester}
-              onChange={(e) => setSemester(e.target.value)}
-              error={errors.semester}
-            />
-            <FormField
-              label="SKS"
-              type="number"
-              placeholder="Masukkan SKS (contoh: 3)"
-              value={sks}
-              onChange={(e) => setSks(e.target.value)}
-              error={errors.sks}
-            />
-          </div>
+          <FormField
+            label="Semester"
+            type="select"
+            placeholder="Pilih Semester"
+            value={akademik}
+            onChange={(e) => setAkademik(e.target.value)}
+            error={errors.akademik}
+          >
+            {akademikOptions?.map((akademikItem) => (
+              <option key={akademikItem._id} value={akademikItem._id}>
+                {akademikItem.th_akademik} ({akademikItem.semester})
+              </option>
+            ))}
+          </FormField>
 
-          <div className="mt-4">
-            <FormField
-              label="Dosen"
-              type="select"
-              placeholder="Pilih Dosen Pengampu"
-              value={dosen}
-              onChange={(e) => setDosen(e.target.value)}
-              error={errors.dosen}
-            >
-              {dosenOptions?.map((dosenItem) => (
-                <option key={dosenItem._id} value={dosenItem._id}>
-                  {dosenItem.nama_dosen}
-                </option>
-              ))}
-            </FormField>
-          </div>
+          <FormField
+            label="SKS"
+            type="number"
+            placeholder="Masukkan SKS (contoh: 3)"
+            value={sks}
+            onChange={(e) => setSks(e.target.value)}
+            error={errors.sks}
+          />
 
           <div className="flex justify-end space-x-2 mt-6">
             <Button label="Batal" onClick={onClose} variant="secondary" />

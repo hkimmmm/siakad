@@ -104,9 +104,7 @@ export default function KelasTable() {
                 Nama Kelas
               </th>
               <th className="py-3 px-4 font-semibold text-center">Prodi</th>
-              <th className="py-3 px-4 font-semibold text-center">
-                Tahun Akademik
-              </th>
+              <th className="py-3 px-4 font-semibold text-center">Semester</th>
               <th className="py-3 px-4 font-semibold text-center">
                 Jumlah Mahasiswa
               </th>
@@ -127,7 +125,7 @@ export default function KelasTable() {
                 </td>
                 <td className="py-3 px-4 text-center">
                   {kelas.akademik
-                    ? kelas.akademik.th_akademik
+                    ? kelas.akademik.semester
                     : 'Tahun Akademik Tidak Diketahui'}
                 </td>
                 <td className="py-3 px-4 text-center">

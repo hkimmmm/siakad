@@ -83,7 +83,6 @@ export default function MatkulTable() {
 
   return (
     <div className="bg-white border border-gray-200 rounded-lg shadow-lg p-6">
-      {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
         <h2 className="text-lg font-semibold">Mata Kuliah</h2>
         <input
@@ -95,7 +94,6 @@ export default function MatkulTable() {
         />
       </div>
 
-      {/* Table */}
       <div className="overflow-x-auto mt-5">
         <table className="min-w-full bg-white text-sm">
           <thead className="sticky top-0 bg-white">
@@ -114,7 +112,6 @@ export default function MatkulTable() {
               <th className="py-3 px-4 font-semibold text-center">
                 Jumlah SKS
               </th>
-              <th className="py-3 px-4 font-semibold text-center">Dosen</th>
               <th className="py-3 px-4 font-semibold text-center">Aksi</th>
             </tr>
           </thead>
@@ -131,13 +128,12 @@ export default function MatkulTable() {
                     ? matkul.prodi.kd_prodi
                     : 'Prodi Tidak Diketahui'}
                 </td>
-                <td className="py-3 px-4 text-center">{matkul.semester}</td>
-                <td className="py-3 px-4 text-center">{matkul.sks}</td>
                 <td className="py-3 px-4 text-center">
-                  {matkul.dosen
-                    ? matkul.dosen.nama_dosen
-                    : 'Dosen Tidak Diketahui'}
+                  {matkul.akademik
+                    ? matkul.akademik.semester
+                    : 'Semester Tidak Diketahui'}
                 </td>
+                <td className="py-3 px-4 text-center">{matkul.sks}</td>
                 <td className="py-3 px-4 flex justify-center space-x-2">
                   <button
                     onClick={() => handleEdit(matkul)}
@@ -161,7 +157,6 @@ export default function MatkulTable() {
         </table>
       </div>
 
-      {/* Pagination */}
       <div className="mt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
         <p className="text-md text-gray-600">
           Showing {(currentPage - 1) * entriesPerPage + 1} to{' '}

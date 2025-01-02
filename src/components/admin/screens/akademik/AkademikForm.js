@@ -22,8 +22,9 @@ export default function AkademikForm({ existingAkademik, onSubmit, onClose }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!thAkademik || !semester || status === undefined) {
-      alert('Semua field harus diisi!');
+    // Validasi form
+    if (!thAkademik || !semester || semester < 1) {
+      alert('Semua field harus diisi dengan benar!');
       return;
     }
 
@@ -66,21 +67,21 @@ export default function AkademikForm({ existingAkademik, onSubmit, onClose }) {
           />
 
           <FormField
-            label="Semester"
-            type="select"
-            placeholder="Pilih Semester"
+            label="Tambah Semester Baru"
+            type="number"
+            placeholder="Masukkan Semester Baru"
             value={semester}
-            onChange={(e) => setSemester(e.target.value)}
-          >
-            <option value="Ganjil">Ganjil</option>
-            <option value="Genap">Genap</option>
-          </FormField>
+            onChange={(e) => {
+              const value = Number(e.target.value);
+              if (value >= 1) setSemester(value);
+            }}
+          />
 
           <div className="flex items-center mb-4">
             <FormField
               label="Status"
               type="checkbox"
-              checked={status}
+              value={status}
               onChange={(e) => setStatus(e.target.checked)}
             />
             <span className="ml-2 text-gray-700">

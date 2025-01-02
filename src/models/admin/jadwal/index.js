@@ -2,14 +2,19 @@ import mongoose from 'mongoose';
 
 const JadwalSchema = new mongoose.Schema(
   {
+    matkul: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Matkul',
+      required: true
+    },
     kelas: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Kelas',
       required: true
     },
-    matkul: {
+    dosen: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Matkul',
+      ref: 'Dosen',
       required: true
     },
     hari: {
@@ -17,15 +22,19 @@ const JadwalSchema = new mongoose.Schema(
       required: true,
       trim: true
     },
-    waktu_mulai: {
-      type: Timestamp,
-      required: true,
-      trim: true
+    jam_mulai: {
+      type: Date,
+      required: true
     },
-    waktu_selesai: {
-      type: Timestamp,
+    jam_selesai: {
+      type: Date,
       required: true,
-      trim: true
+      validate: {
+        validator: function (value) {
+          return value > this.jam_mulai;
+        },
+        message: 'Jam selesai harus lebih besar dari jam mulai.'
+      }
     },
     ruangan: {
       type: mongoose.Schema.Types.ObjectId,

@@ -1,4 +1,4 @@
-import { withRole } from '@/middleware/withRole';
+import { withRole } from '@/middleware/authMiddleware';
 
 const handler = async (req, res) => {
   // Logika khusus untuk admin

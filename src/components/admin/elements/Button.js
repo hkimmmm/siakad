@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { FaEdit, FaTrash, FaInfoCircle } from 'react-icons/fa';
 
 const variantStyles = {
@@ -19,8 +20,24 @@ const Button = ({
   type = 'button',
   variant = 'primary',
   disabled = false,
-  icon = null
+  icon = null,
+  href = null
 }) => {
+  if (href) {
+    return (
+      <Link href={href} legacyBehavior>
+        <button
+          className={`flex items-center px-4 py-2 rounded ${
+            variantStyles[variant]
+          } ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+        >
+          {icon && iconComponents[icon]}
+          {label}
+        </button>
+      </Link>
+    );
+  }
+
   return (
     <button
       type={type}
